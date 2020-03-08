@@ -13,6 +13,18 @@ export function getUsers(id) {
     id
   }
 }
+export function getUsersSuccess(data){
+  return {
+    type:GET_USER_SUCCESS,
+    data
+  }
+}
+export function getUsersFailed(){
+  return {
+    type: GET_USER_FAILED,
+    
+  }
+} 
 
 
 

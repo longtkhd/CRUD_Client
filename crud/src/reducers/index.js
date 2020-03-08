@@ -35,7 +35,7 @@ const rootReducer = (state = initialState, action) =>
       case GET_USER_FAILED:
         draft.loading = false;
         draft.error = true;
-        draft.success = false;
+        draft.success = true;
         break;
     }
   });
