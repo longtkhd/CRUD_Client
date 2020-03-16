@@ -4,7 +4,10 @@ import {
   GET_USER_FAILED,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER
+  DELETE_USER,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED
 } from '../constants/index';
 
 export function getUsers(id) {
@@ -25,6 +28,32 @@ export function getUsersFailed(){
     
   }
 } 
+
+
+
+export function loginUser(email,password){
+  return {
+    type:LOGIN,
+    data:{
+      email,
+      password,
+    }
+  }
+}
+
+export function loginSuccess(data) {
+  return {
+    type: LOGIN_SUCCESS,
+    data,
+  };
+}
+
+export function loginFaild(data) {
+  return {
+    type: LOGIN_FAILED,
+    data,
+  };
+}
 
 
 

@@ -1,11 +1,28 @@
 import React from 'react';
 
+import { Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import history from './history';
+// import Header from './components/Header.components';
+import NotFound from './components/NotFound.components';
+// import User from './components/Users.components';
+import SignIn from './components/SignIn.component';
 
 function App() {
   return (
     <div className="App">
-      <h1>this is app.js</h1>
+    
+        <Router history={history}>
+          <div>
+            {/* <Header></Header> */}
+            <Switch>
+            <Route path="/login" exact component={SignIn} />
+            <Route path="**" exact component={NotFound} />
+              
+            </Switch>
+          </div>
+        </Router>
+    
     </div>
   );
 }

@@ -6,7 +6,10 @@ import {
   GET_USER_FAILED,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER
+  DELETE_USER,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED
 } from '../constants/index';
 
 export const initialState = {
@@ -14,6 +17,7 @@ export const initialState = {
   loading: false,
   error: false,
   success: false,
+  logined: false,
 };
 
 const rootReducer = (state = initialState, action) =>
@@ -37,6 +41,23 @@ const rootReducer = (state = initialState, action) =>
         draft.error = true;
         draft.success = true;
         break;
+
+        case LOGIN:
+          draft.email = action.data.email;
+          draft.password = action.data.password;
+          draft.logined = true;
+          break;
+
+      case LOGIN_SUCCESS:
+        draft.logined = true;
+        break;
+      
+        case LOGIN_FAILED:
+          draft.logined = false;
+          break;
+          
+      default:
+        return state;
     }
   });
 
