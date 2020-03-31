@@ -11,7 +11,12 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Container from '@material-ui/core/Container';
+import {loginUser} from '../actions/index';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 
 
 function Copyright() {
@@ -47,33 +52,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export  function SignIn(props) {
   const classes = useStyles();
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
+
+  const handleSubmit = () => {
+    props.onLogin(email, password);
+  }
+  useEffect(() => {
+    if (localStorage.getItem('isAuthenticated') === 'true') {
+      props.history.push('/admin');
+    }
+  }, [props.loginPage]);
+   
+
+  
   return (
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <ValidatorForm
+          onSubmit={handleSubmit}
+        >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
+          <TextValidator
+          // <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
-            name="email"
-            autoComplete="email"
+            name="email"       
             autoFocus
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            value = {email}        
           />
-          <TextField
+          <TextValidator
             variant="outlined"
             margin="normal"
             required
@@ -82,21 +106,26 @@ const [password, setPassword] = useState('');
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+          
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          <Button 
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            // onClick={handleSubmit}
           >
             Sign In
           </Button>
+          </ValidatorForm>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -109,7 +138,7 @@ const [password, setPassword] = useState('');
               </Link>
             </Grid>
           </Grid>
-        </form>
+        {/* </form> */}
       </div>
       <Box mt={8}>
         <Copyright />
@@ -117,3 +146,23 @@ const [password, setPassword] = useState('');
     </Container>
   );
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    onLogin: (email,password) => dispatch(loginUser(email,password))
+  };
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    loginPage: state.logined
+  }
+}
+
+const withConnect = connect(
+  mapStateToProps, 
+  mapDispatchToProps, 
+);
+
+export default compose(withConnect)(SignIn);

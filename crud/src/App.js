@@ -5,8 +5,10 @@ import './App.css';
 import history from './history';
 // import Header from './components/Header.components';
 import NotFound from './components/NotFound.components';
-// import User from './components/Users.components';
+import User from './components/Users.components';
 import SignIn from './components/SignIn.component';
+import PrivateRoute from './components/PrivateRouter';
+import Dashboard from './components/Dashboard.component';
 
 function App() {
   return (
@@ -16,8 +18,15 @@ function App() {
           <div>
             {/* <Header></Header> */}
             <Switch>
-            <Route path="/login" exact component={SignIn} />
+            <Route path="/login" exact component={SignIn} />             
+            <PrivateRoute path="/admin"
+              component={User}
+              layout={Dashboard}
+            />
+
             <Route path="**" exact component={NotFound} />
+
+            
               
             </Switch>
           </div>

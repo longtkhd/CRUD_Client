@@ -45,7 +45,7 @@ const rootReducer = (state = initialState, action) =>
         case LOGIN:
           draft.email = action.data.email;
           draft.password = action.data.password;
-          draft.logined = true;
+          draft.logined = false;
           break;
 
       case LOGIN_SUCCESS:
