@@ -9,6 +9,7 @@ import User from './components/Users.components';
 import SignIn from './components/SignIn.component';
 import PrivateRoute from './components/PrivateRouter';
 import Dashboard from './components/Dashboard.component';
+import DashboardPage from './components/DashboardPage.component';
 
 function App() {
   return (
@@ -19,8 +20,12 @@ function App() {
             {/* <Header></Header> */}
             <Switch>
             <Route path="/login" exact component={SignIn} />             
-            <PrivateRoute path="/admin"
+            <PrivateRoute path="/user"
               component={User}
+              layout={Dashboard}
+            />
+            <PrivateRoute path="/dashboard"
+              component={DashboardPage}
               layout={Dashboard}
             />
 

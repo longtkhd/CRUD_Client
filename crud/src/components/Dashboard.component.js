@@ -20,7 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Link as RouterLink } from 'react-router-dom';
+
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 // }
 
 export default function Dashboard(props) {
+
   const { children } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -184,7 +185,7 @@ export default function Dashboard(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth="lg" className={classes.container} >
           <Grid container spacing={3}>
             {children}
             {/* Chart */}
